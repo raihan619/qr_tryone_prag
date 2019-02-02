@@ -1,0 +1,18 @@
+#! /usr/bin/env python
+import rospy
+from std_msgs.msg import String
+import subprocess
+import sys
+ 
+pub = rospy.Publisher('topic_name', String, queue_size=10)
+rospy.init_node('node_name')
+r = rospy.Rate(10) # 10hz
+
+#print subprocess.Popen("python3 qr_nokaam.py", shell=True, stdout=subprocess.PIPE).stdout.read()
+#return_code = subprocess.call("python qr_nokaam.py", shell=True)
+
+pid = subprocess.Popen([sys.executable, "qr_nokaam.py"]) 
+
+while not rospy.is_shutdown():
+	pub.publish("hello world")
+	r.sleep()
